@@ -178,6 +178,8 @@ class UserController extends Controller
          if (file_exists(public_path('image/'.$user->image))) {
                 unlink(public_path('image/'.$user->image)); 
             }
+
+            
         
           
         $user->update($input);

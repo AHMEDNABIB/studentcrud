@@ -26,7 +26,8 @@ class User extends Authenticatable
         'mobile',
         'address',
         'post_code',
-        'image'
+        'image',
+        'is_admin'
     ];
 
     /**
@@ -46,5 +47,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        // 'is_admin'=>'boolean'
     ];
 }

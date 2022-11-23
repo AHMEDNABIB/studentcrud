@@ -89,6 +89,8 @@
         <img src="{{url('/uploads', $user->image)}}" alt="" srcset="" width="120"></br>
         </br>
 
+         <input type="hidden" id="custId" name="is_admin" value="0">
+
         <input type="submit" value="Save" class="btn btn-success"></br>
     </form>
    

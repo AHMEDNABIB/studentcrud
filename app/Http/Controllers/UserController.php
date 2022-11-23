@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use  App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Registered;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 
@@ -13,15 +19,31 @@ class UserController extends Controller
      public function __construct(){
         $this->middleware('auth');
      }
-    /**
+    /**Auth::user()->is_admin
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $users= User::all();
-        return view('users.index',compact('users'));
+    {     
+
+        //  $is = Auth::
+
+        $id = Auth::id();
+
+      // dd($id);
+
+          if (Auth::user()->is_admin==1) {
+            //  $users= User::all();
+              $users = User::paginate(5);
+           return view('users.index',compact('users'));
+          }else {
+               $users= User:: where('is_admin',0)->where('id',$id)->get() ;
+                return view('users.index',compact('users'));
+          }
+
+      
+       
     }
 
     /**
@@ -31,7 +53,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+    return view('auth.register');
     }
 
     /**
@@ -42,8 +64,49 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'first_name'=> 'required|max:25',
+            'last_name'=> 'required|max:25',
+            'mobile'=> 'required|numeric',
+            'address'=> 'required|max:50',
+            'post_code'=> 'required',
+            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+         if ($request->hasFile('image')) {
+        $file= $request->file('image');
+        $extension= $file->extension();
+        $final= date('YmdHis').'.'.$extension;
+
+        $file->move(public_path('/uploads'),$final);
+
+      }
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'mobile' => $request->mobile,
+            'address' => $request->address,
+            'post_code' => $request->post_code,
+            'image' => $final,
+            'is_admin'=>0,
+            'password' => Hash::make($request->password),
+        ]);
+
+        event(new Registered($user));
+
+        // Auth::login($user);
+
+        return redirect(RouteServiceProvider::HOME);
+    
+    
+     }
 
     /**
      * Display the specified resource.
@@ -81,7 +144,7 @@ class UserController extends Controller
     {
 
         
-        $image = Image::findOrFail($id);
+        $user = User::findOrFail($id);
 
         if ($request->hasFile('image')) {
 
@@ -94,8 +157,8 @@ class UserController extends Controller
             //    $validated = $validator->safe()->only(['image']);
             //    $validated = $validator->safe()->except(['image.required', 'image.image']);
 
-            if (file_exists(public_path('/uploads/'.$image->image))) {
-                unlink(public_path('/uploads/'.$image->image)); 
+            if (file_exists(public_path('/uploads/'.$user->image))) {
+                unlink(public_path('/uploads/'.$user->image)); 
             }
 
            
@@ -106,32 +169,34 @@ class UserController extends Controller
 
             $file->move(public_path('/uploads/'),$final);
 
-            $image->image= $final;
+            $user->image= $final;
 
         }
 
-    //      $request->validate([
-    //          'first_name'=> 'required|max:25',
-    //         'last_name'=> 'required|max:25',
-    //         'mobile'=> 'required|numeric',
-    //         'address'=> 'required',
-    //         'post_code'=> 'required|digits:4',
-           
+        
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'first_name'=> 'required|max:25',
+            'last_name'=> 'required|max:25',
+            'mobile'=> 'required|numeric',
+            'address'=> 'required|max:50',
+            'post_code'=> 'required|digits:5',
+            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
 
-    //    ]);
+         
 
-            $validated = $request->validated();
-    //    $validated =  $request->safe()->except(['image.required','image.image']);
+       $user->first_name= $request->first_name;
+       $user->last_name= $request->last_name;
+       $user->mobile= $request->mobile;
+       $user->address= $request->address;
+       $user->post_code= $request->post_code;
 
-       $image->first_name= $request->first_name;
-       $image->last_name= $request->last_name;
-       $image->mobile= $request->mobile;
-       $image->address= $request->address;
-       $image->post_code= $request->post_code;
+       $user->update();
 
-       $image->update();
-
-       return redirect()->route('image.index');
+       return redirect()->route('users');
         
     }
 
@@ -143,6 +208,20 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user= User::findOrFail($id);
+        
+         if (file_exists(public_path('/uploads/'.$user->image))) {
+                unlink(public_path('/uploads/'.$user->image)); 
+            }
+
+        $user->delete();
+
+        return redirect()->route('users.index');
     }
+
+
+    //  public function handleAdmin()
+    // {
+    //     return view('handleAdmin');
+    // } 
 }

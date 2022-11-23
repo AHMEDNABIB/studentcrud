@@ -37,7 +37,7 @@
                         <td>{{ $user->address}}</td>
                         <td>{{ $user->post_code}}</td>
                         <td>
-                            <img src="{{url('/uploads',$user->image)}}" alt="Product Image" srcset="" width="80">
+                            <img src="{{url('image/',$user->image)}}" alt="Product Image" srcset="" width="80">
                         </td>
 
                           <td>

@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
 
             'first_name'=>'Ahmed',
              'last_name'=>'Nabib',
-            'name'=> "Admin",
+            'name'=> 'Admin',
             'email'=>'admin@gmail.com',
             'mobile'=>'01754706621',
              'address'=>'mirpur 10',
@@ -31,12 +31,6 @@ class AdminSeeder extends Seeder
         ]);
 
 
-           User::create([
-            'name'=> "Test",
-            'email'=>'test@gmail.com',
-            'email_verified_at'=>now(),
-            'password'=>bcrypt('password'),
-            'is_admin'=>false,
-        ]);
+          
     }
 }

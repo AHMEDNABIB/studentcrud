@@ -42,7 +42,7 @@
         <label>Email</label></br>
         <input type="email" name="email" id="first_name" class="form-control" value="{{ $user->email}}"></br>
 
-        @error('first_name')
+        @error('email')
 
           <span class="text-danger">{{$message}}</span>
             
@@ -76,9 +76,9 @@
         @enderror
 
         <label>Image</label></br>
-        <input type="file" name="image" id="img" class="form-control" value="{{$user->image}}"></br>
+        <input type="file" name="image" id="img" class="form-control" ></br>
 
-         @error('user')
+         @error('image')
 
           <span class="text-danger">{{$message}}</span>
             
@@ -90,6 +90,14 @@
         </br>
 
          <input type="hidden" id="custId" name="is_admin" value="0">
+
+{{-- 
+         <div class="form-group mb-3">
+					<input type="password" name="password" class="form-control" placeholder="Password" value="{{$user->password}}" />
+					@if($errors->has('password'))
+						<span class="text-danger">{{ $errors->first('password') }}</span>
+					@endif
+				</div> --}}
 
         <input type="submit" value="Save" class="btn btn-success"></br>
     </form>

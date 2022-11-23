@@ -88,16 +88,27 @@
 
         <img src="{{url('/image', $user->image)}}" alt="" srcset="" width="120"></br>
         </br>
+               
+        
+              <label for="password">Password</label>
+              <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" autocomplete="off" ">
+         @error('password')
 
-         
+          <span class="text-danger">{{$message}}</span>
+            
+        @enderror
 
-{{-- 
-         <div class="form-group mb-3">
-					<input type="password" name="password" class="form-control" placeholder="Password" value="{{$user->password}}" />
-					@if($errors->has('password'))
-						<span class="text-danger">{{ $errors->first('password') }}</span>
-					@endif
-				</div> --}}
+        
+             <label for="confirm-password">Confirm Password</label>
+              <input type="password" name="confirm-password" class="form-control" id="confirm-password" placeholder="Enter confirm password" autocomplete="off">
+          
+           @error('password')
+
+          <span class="text-danger">{{$message}}</span>
+            
+        @enderror
+       
+
 
         <input type="submit" value="Save" class="btn btn-success"></br>
     </form>

@@ -31,7 +31,9 @@ class UserController extends Controller
 
         $id = Auth::id();
 
-   
+        // dd(Auth::user());
+
+  
 
           if (Auth::user()->is_admin==1) {
             //  $users= User::all();
@@ -176,6 +178,7 @@ class UserController extends Controller
          if (file_exists(public_path('image/'.$user->image))) {
                 unlink(public_path('image/'.$user->image)); 
             }
+        
           
         $user->update($input);
     

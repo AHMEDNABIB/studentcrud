@@ -31,18 +31,16 @@ class UserController extends Controller
 
         $id = Auth::id();
 
-    //    dd($id);
-
-        // dd(Auth::user());
+   
 
           if (Auth::user()->is_admin==1) {
             //  $users= User::all();
-            //   dd('hello');
-              $users = User::paginate(5);
+           
+              $users = User::orderBy('id', 'DESC')->paginate(5);
              
            return view('users.index',compact('users'));
           }else {
-           // dd('hello');
+      
                $users= User:: where('is_admin',0)->where('id',$id)->get() ;
                 return view('users.index',compact('users'));
           }
@@ -67,48 +65,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request)
-    // {
-
-    //     $request->validate([
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    //         'first_name'=> 'required|max:25',
-    //         'last_name'=> 'required|max:25',
-    //         'mobile'=> 'required|numeric',
-    //         'address'=> 'required|max:50',
-    //         'post_code'=> 'required|digits:5',
-    //         'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-    //     ]);
-
-    //      if ($request->hasFile('image')) {
-    //     $file= $request->file('image');
-    //     $extension= $file->extension();
-    //     $final= date('YmdHis').'.'.$extension;
-
-    //     $file->move(public_path('/uploads'),$final);
-
-    //   }
-
-    //     $user = User::create([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'first_name' => $request->first_name,
-    //         'last_name' => $request->last_name,
-    //         'mobile' => $request->mobile,
-    //         'address' => $request->address,
-    //         'post_code' => $request->post_code,
-    //         'image' => $final,
-    //         'is_admin'=>0,
-    //         'password' => Hash::make($request->password),
-    //     ]);
-
-
-    //     return redirect(RouteServiceProvider::HOME);
-    
-    
-    //  }
+   
 
 
     public function store(Request $request)
@@ -128,7 +85,7 @@ class UserController extends Controller
   
          $input = $request->all();
 
-        //  $input['password']= 'Hash::make($request->password)';
+     
 
          $password= Hash::make($request->password);
          $input['password']= $password;
@@ -183,103 +140,28 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, $id)
-    // {
-
-        
-    //     $user = User::findOrFail($id);
-
-    //     // dd($request->image);
-
-    //     $input = $request->all();
-  
-    //     if ($image = $request->file('image')) {
-    //         $destinationPath = '/uploads';
-    //         $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-    //         $image->move($destinationPath, $profileImage);
-    //         $input['image'] = "$profileImage";
-    //     }else{
-    //         unset($input['image']);
-    //     }
-          
-    //     $user->update($input);
-       
-
-        
-
-
-    //     //  if ($request->hasFile('image')) {
-
-          
-
-    //     //     if (file_exists(public_path('/uploads/'.$user->image))) {
-    //     //         unlink(public_path('/uploads/'.$user->image)); 
-    //     //     }
-           
-
-    //     //      $file= $request->file('image');
-    //     //       $extension= $file->extension();
-    //     //      $final= date('YmdHis').'.'.$extension;
-
-    //     //       $file->move(public_path('/uploads'),$final);
-    //     // }
-
-       
-       
-
-        
-    //     $request->validate([
-    //         'name' => ['required', 'string', 'max:255'],
-    //         // 'email' => [ 'string', 'email', 'max:255'],
-    //         // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    //         // 'first_name'=> 'required|max:25',
-    //         // 'last_name'=> 'required|max:25',
-    //         // 'mobile'=> 'required|numeric',
-    //         // 'address'=> 'required|max:50',
-    //         // 'post_code'=> 'required|digits:5',
-    //         // 'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-    //     ]);
-
-    // //    $user->first_name= $request->first_name;
-    // //    $user->last_name= $request->last_name;
-    // //    $user->mobile= $request->mobile;
-    // //    $user->address= $request->address;
-    // //    $user->post_code= $request->post_code;
-
-    // //    $user->update();
-
-    // // dd($request->all());
-    // //    $user = User::update([
-    // //         'name' => $request->name,
-    // //         // 'email' => $request->email,
-    // //         // 'first_name' => $request->first_name,
-    // //         // 'last_name' => $request->last_name,
-    // //         // 'mobile' => $request->mobile,
-    // //         // 'address' => $request->address,
-    // //         // 'post_code' => $request->post_code,
-    // //         // 'image' => $final,
-    // //         // 'is_admin'=>0,
-    // //         // 'password' => Hash::make($request->password),
-    // //     ]);
-
-
-
-    //    return redirect()->route('users.index');
-        
-    // }
-
+    
 
 
     public function update(Request $request, $id)
     {
     
          $user = User::findOrFail($id);
+
+         $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            // 'email' => [ 'string', 'email', 'max:255'],
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+             'email'=>'required|string|email|max:255|unique:users,email,'. $id,
+            'first_name'=> 'required|max:25',
+            'last_name'=> 'required|max:25',
+            'mobile'=> 'required|numeric',
+            'address'=> 'required|max:50',
+            'post_code'=> 'required|digits:5',
+            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
         
-    //  $request->validate([
-    //         'name' => 'required',
-    //         'detail' => 'required'
-    //     ]);
-  
+    
         $input = $request->all();
   
         if ($image = $request->file('image')) {
@@ -290,15 +172,17 @@ class UserController extends Controller
         }else{
             unset($input['image']);
         }
+         
+         if (file_exists(public_path('image/'.$user->image))) {
+                unlink(public_path('image/'.$user->image)); 
+            }
           
         $user->update($input);
     
+        return redirect()->route('users.index');
+  
        
-
-
-
-       return redirect()->route('users.index');
-        
+       
     }
 
     /**

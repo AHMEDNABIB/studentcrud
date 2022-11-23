@@ -86,10 +86,10 @@
 
       </br>
 
-        <img src="{{url('/uploads', $user->image)}}" alt="" srcset="" width="120"></br>
+        <img src="{{url('/image', $user->image)}}" alt="" srcset="" width="120"></br>
         </br>
 
-         <input type="hidden" id="custId" name="is_admin" value="0">
+         
 
 {{-- 
          <div class="form-group mb-3">

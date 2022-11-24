@@ -36,43 +36,43 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'first_name'=> 'required|max:25',
-            'last_name'=> 'required|max:25',
-            'mobile'=> 'required|numeric',
-            'address'=> 'required|max:50',
-            'post_code'=> 'required|digits:5',
-            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
+    //     $request->validate([
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+    //         'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    //         'first_name'=> 'required|max:25',
+    //         'last_name'=> 'required|max:25',
+    //         'mobile'=> 'required|numeric',
+    //         'address'=> 'required|max:50',
+    //         'post_code'=> 'required|digits:5',
+    //         'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+    //     ]);
 
-         if ($request->hasFile('image')) {
-        $file= $request->file('image');
-        $extension= $file->extension();
-        $final= date('YmdHis').'.'.$extension;
+    //      if ($request->hasFile('image')) {
+    //     $file= $request->file('image');
+    //     $extension= $file->extension();
+    //     $final= date('YmdHis').'.'.$extension;
 
-        $file->move(public_path('/uploads'),$final);
+    //     $file->move(public_path('/uploads'),$final);
 
-      }
+    //   }
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'mobile' => $request->mobile,
-            'address' => $request->address,
-            'post_code' => $request->post_code,
-            'image' => $final,
-            'password' => Hash::make($request->password),
-        ]);
+    //     $user = User::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'first_name' => $request->first_name,
+    //         'last_name' => $request->last_name,
+    //         'mobile' => $request->mobile,
+    //         'address' => $request->address,
+    //         'post_code' => $request->post_code,
+    //         'image' => $final,
+    //         'password' => Hash::make($request->password),
+    //     ]);
 
-        event(new Registered($user));
+    //     event(new Registered($user));
 
-        Auth::login($user);
+    //     Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+    //     return redirect(RouteServiceProvider::HOME);
     }
 }

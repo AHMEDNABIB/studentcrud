@@ -42,6 +42,11 @@ Route::get('/', function () {
 Route::resource('users', UserController::class);
 
 Route::get('/dashboard', function () {
+
+    // if (Auth::user()->is_Admin())
+    //     return view('dashboard');
+
+    
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

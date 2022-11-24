@@ -28,6 +28,9 @@
                      @foreach ($users as $user)
 
                      <tr>
+                        @php
+                        //dd($users->count());
+                        @endphp
                         <td>{{ $loop->index+1}}</td>
                         <td>{{ $user->name}}</td>
                         <td>{{ $user->first_name}}</td>
@@ -37,7 +40,7 @@
                         <td>{{ $user->address}}</td>
                         <td>{{ $user->post_code}}</td>
                         <td>
-                            <img src="{{url('/uploads',$user->image)}}" alt="Product Image" srcset="" width="80">
+                            <img src="{{url('image/',$user->image)}}" alt="Product Image" srcset="" width="80">
                         </td>
 
                           <td>
@@ -83,7 +86,15 @@
                     </tbody>
                 </table>
 
+               
+
             </div>
+            @php $userId=Auth::user()->is_admin; @endphp
+
+            @if($userId==1)
+               {{ $users->links() }}
+            @endif
+            
         </div>
     </div>
 @endsection

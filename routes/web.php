@@ -21,35 +21,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-
-// Route::controller(SampleController::class)->group(function(){
-
-//     Route::get('login', 'index')->name('login');
-
-//     Route::get('registration', 'registration')->name('registration');
-//     Route::post('validate_registration', 'validate_registration')->name('sample.validate_registration');
-//        Route::post('validate_login', 'validate_login')->name('sample.validate_login');
-
-//     Route::get('dashboard', 'dashboard')->name('dashboard');
-
-//     Route::get('logout', 'logout')->name('logout');
-
- 
-
-// });
-
-
 Route::resource('users', UserController::class);
 
 Route::get('/dashboard', function () {
-<<<<<<< HEAD
-=======
-
-    // if (Auth::user()->is_Admin())
-    //     return view('dashboard');
-
-    
->>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

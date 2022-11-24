@@ -90,7 +90,7 @@
         </br>
                
         
-              {{-- <label for="password">Password</label>
+              <label for="password">Password</label>
               <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" autocomplete="off" ">
          @error('password')
 
@@ -106,7 +106,7 @@
 
           <span class="text-danger">{{$message}}</span>
             
-        @enderror --}}
+        @enderror
        
 
 

@@ -28,6 +28,9 @@
                      @foreach ($users as $user)
 
                      <tr>
+                        @php
+                        //dd($users->count());
+                        @endphp
                         <td>{{ $loop->index+1}}</td>
                         <td>{{ $user->name}}</td>
                         <td>{{ $user->first_name}}</td>
@@ -86,8 +89,12 @@
                
 
             </div>
+            @php $userId=Auth::user()->is_admin; @endphp
 
-            {{ $users->links() }}
+            @if($userId==1)
+               {{ $users->links() }}
+            @endif
+            
         </div>
     </div>
 @endsection

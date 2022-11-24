@@ -31,9 +31,14 @@ class UserController extends Controller
 
         $id = Auth::id();
 
-        // dd(Auth::user());
+          //dd();
 
-  
+        
+              
+
+        //    $users = User::orderBy('id', 'DESC')->paginate(5);
+             
+        //    return view('users.index',compact('users'));
 
           if (Auth::user()->is_admin==1) {
             //  $users= User::all();
@@ -42,8 +47,12 @@ class UserController extends Controller
              
            return view('users.index',compact('users'));
           }else {
+            //dd(Auth::user());
       
-               $users= User:: where('is_admin',0)->where('id',$id)->get() ;
+               //$users= User::find($id)->paginate(1) ;
+               //dd(Auth::id());
+               $users= User::where('id',$id)->get();
+               //dd($users);
                 return view('users.index',compact('users'));
           }
 
@@ -89,7 +98,8 @@ class UserController extends Controller
 
      
 
-         $password= Hash::make($request->password);
+        //  $password= Hash::make($request->password);
+         $password= bcrypt($request->password);
          $input['password']= $password;
          $input['is_admin']=0;
   
@@ -178,8 +188,12 @@ class UserController extends Controller
          if (file_exists(public_path('image/'.$user->image))) {
                 unlink(public_path('image/'.$user->image)); 
             }
-
             
+         $password= bcrypt($request->password);
+         $input['password']= $password;
+         $input['is_admin']=0;
+  
+        
         
           
         $user->update($input);

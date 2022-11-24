@@ -42,7 +42,11 @@
         <label>Email</label></br>
         <input type="email" name="email" id="first_name" class="form-control" value="{{ $user->email}}"></br>
 
+<<<<<<< HEAD
         @error('first_name')
+=======
+        @error('email')
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
 
           <span class="text-danger">{{$message}}</span>
             
@@ -76,9 +80,15 @@
         @enderror
 
         <label>Image</label></br>
+<<<<<<< HEAD
         <input type="file" name="image" id="img" class="form-control" value="{{$user->image}}"></br>
 
          @error('user')
+=======
+        <input type="file" name="image" id="img" class="form-control" ></br>
+
+         @error('image')
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
 
           <span class="text-danger">{{$message}}</span>
             
@@ -86,8 +96,34 @@
 
       </br>
 
+<<<<<<< HEAD
         <img src="{{url('/uploads', $user->image)}}" alt="" srcset="" width="120"></br>
         </br>
+=======
+        <img src="{{url('/image', $user->image)}}" alt="" srcset="" width="120"></br>
+        </br>
+               
+        
+              <label for="password">Password</label>
+              <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" autocomplete="off" ">
+         @error('password')
+
+          <span class="text-danger">{{$message}}</span>
+            
+        @enderror
+
+        
+             <label for="confirm-password">Confirm Password</label>
+              <input type="password" name="confirm-password" class="form-control" id="confirm-password" placeholder="Enter confirm password" autocomplete="off">
+          
+           @error('password')
+
+          <span class="text-danger">{{$message}}</span>
+            
+        @enderror
+       
+
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
 
         <input type="submit" value="Save" class="btn btn-success"></br>
     </form>

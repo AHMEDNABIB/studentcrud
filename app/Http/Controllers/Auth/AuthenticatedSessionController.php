@@ -28,6 +28,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+<<<<<<< HEAD
+=======
+        // if (auth()->user() || !auth()->user()->is_admin==1) {
+        //    return redirect('/');
+        // }
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
         $request->authenticate();
 
         $request->session()->regenerate();

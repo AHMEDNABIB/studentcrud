@@ -6,11 +6,7 @@
             </a>
         </x-slot>
 
-<<<<<<< HEAD
-        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" >
-=======
         <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data" >
->>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
             @csrf
 
             <!-- Name -->
@@ -22,7 +18,7 @@
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
-              <!-- Name -->
+            <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('First Name')" />
 
@@ -31,7 +27,7 @@
                 <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
             </div>
 
-              <!-- Name -->
+            <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('Last Name')" />
 
@@ -49,7 +45,7 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
-                <!-- Mobile -->
+            <!-- Mobile -->
             <div>
                 <x-input-label for="name" :value="__('Mobile')" />
 
@@ -58,7 +54,7 @@
                 <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
             </div>
 
-                <!-- Post code -->
+            <!-- Post code -->
             <div>
                 <x-input-label for="name" :value="__('Post Code')" />
 
@@ -67,7 +63,7 @@
                 <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
             </div>
 
-                <!-- Address -->
+            <!-- Address -->
             <div>
                 <x-input-label for="name" :value="__('Address')" />
 
@@ -76,7 +72,7 @@
                 <x-input-error :messages="$errors->get('address')" class="mt-2" />
             </div>
 
-                <!-- image -->
+            <!-- image -->
             <div>
                 <x-input-label for="name" :value="__('Image')" />
 
@@ -90,9 +86,9 @@
                 <x-input-label for="password" :value="__('Password')" />
 
                 <x-text-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
+                              type="password"
+                              name="password"
+                              required autocomplete="new-password" />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
@@ -102,20 +98,14 @@
                 <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
                 <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
+                              type="password"
+                              name="password_confirmation" required />
 
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
-<<<<<<< HEAD
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-=======
-               
->>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
+
 
                 <x-primary-button class="ml-4">
                     {{ __('Register') }}

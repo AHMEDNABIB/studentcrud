@@ -1,7 +1,9 @@
 @extends('layouts.app');
 
 @section('content')
+
     <div class="container">
+        
         <div class="row">
             <div class="col-lg-8">
 
@@ -23,7 +25,6 @@
                     </thead>
                     <tbody>
                     @foreach ($users as $user)
-
                         <tr>
                             <td>{{ $loop->index+1}}</td>
                             <td>{{ $user->name}}</td>
@@ -34,35 +35,29 @@
                             <td>{{ $user->address}}</td>
                             <td>{{ $user->post_code}}</td>
                             <td>
-                                <img src="{{url('/uploads',$user->image)}}" alt="Product Image" srcset="" width="80">
                                 <img src="{{url('image/',$user->image)}}" alt="Product Image" srcset="" width="80">
                             </td>
 
                             <td>
                                 <a href="{{ route('users.show',$user->id)}}" class="btn btn-primary"> Show</a>
                                 <a href="{{ route('users.edit',$user->id)}}" class="btn btn-primary"> Edit</a>
-
-
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
-
-
                             </td>
                         </tr>
-
                     @endforeach
-
                     </tbody>
                 </table>
             </div>
-        </div>
-        @php $userId=Auth::user()->is_admin; @endphp
+            @php $userId=Auth::user()->is_admin; @endphp
 
-        @if($userId==1)
-            {{ $users->links() }}
-        @endif
+            @if($userId==1)
+                {{ $users->links() }}
+            @endif
+
+        </div>
     </div>
 @endsection

@@ -23,11 +23,7 @@ return new class extends Migration
             $table->integer('post_code');
             $table->string('address');
             $table->string('image');
-<<<<<<< HEAD
-            // $table->integer('')
-=======
-             $table->boolean('is_admin')->nullable();
->>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
+            $table->boolean('is_admin')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

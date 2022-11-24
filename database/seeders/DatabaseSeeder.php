@@ -20,11 +20,14 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+<<<<<<< HEAD
+=======
 
        $this->call([
         AdminSeeder::class,
         
     ]);
        
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
     }
 }

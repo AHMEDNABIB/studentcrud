@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use  App\Models\User;
+<<<<<<< HEAD
+=======
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
 
 class UserController extends Controller
 
@@ -19,12 +22,21 @@ class UserController extends Controller
      public function __construct(){
         $this->middleware('auth');
      }
+<<<<<<< HEAD
+    /**
+=======
     /**Auth::user()->is_admin
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
+<<<<<<< HEAD
+    {
+        $users= User::all();
+        return view('users.index',compact('users'));
+=======
     {     
 
         //  $is = Auth::
@@ -58,6 +70,7 @@ class UserController extends Controller
 
       
        
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
     }
 
     /**
@@ -67,7 +80,11 @@ class UserController extends Controller
      */
     public function create()
     {
+<<<<<<< HEAD
+        //
+=======
     return view('auth.register');
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
     }
 
     /**
@@ -76,6 +93,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
+    public function store(Request $request)
+    {
+        //
+    }
+=======
    
 
 
@@ -119,6 +142,7 @@ class UserController extends Controller
     
     
      }
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
 
     /**
      * Display the specified resource.
@@ -152,6 +176,64 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+<<<<<<< HEAD
+    public function update(Request $request, $id)
+    {
+
+        
+        $image = Image::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+
+            // $request->validate([
+
+            //     'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:width=500,height=500'
+
+            // ]);
+
+            //    $validated = $validator->safe()->only(['image']);
+            //    $validated = $validator->safe()->except(['image.required', 'image.image']);
+
+            if (file_exists(public_path('/uploads/'.$image->image))) {
+                unlink(public_path('/uploads/'.$image->image)); 
+            }
+
+           
+
+            $file= $request->file('image');
+            $extension= $file->extension();
+            $final= date('YmdHis').'.'.$extension;
+
+            $file->move(public_path('/uploads/'),$final);
+
+            $image->image= $final;
+
+        }
+
+    //      $request->validate([
+    //          'first_name'=> 'required|max:25',
+    //         'last_name'=> 'required|max:25',
+    //         'mobile'=> 'required|numeric',
+    //         'address'=> 'required',
+    //         'post_code'=> 'required|digits:4',
+           
+
+    //    ]);
+
+            $validated = $request->validated();
+    //    $validated =  $request->safe()->except(['image.required','image.image']);
+
+       $image->first_name= $request->first_name;
+       $image->last_name= $request->last_name;
+       $image->mobile= $request->mobile;
+       $image->address= $request->address;
+       $image->post_code= $request->post_code;
+
+       $image->update();
+
+       return redirect()->route('image.index');
+        
+=======
     
 
 
@@ -202,6 +284,7 @@ class UserController extends Controller
   
        
        
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
     }
 
     /**
@@ -212,6 +295,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+<<<<<<< HEAD
+        //
+    }
+=======
         $user= User::findOrFail($id);
         
          if (file_exists(public_path('/uploads/'.$user->image))) {
@@ -228,4 +315,5 @@ class UserController extends Controller
     // {
     //     return view('handleAdmin');
     // } 
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
 }

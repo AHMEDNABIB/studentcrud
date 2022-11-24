@@ -1,3 +1,26 @@
+<<<<<<< HEAD
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    You're logged in!
+
+                    <a href="{{route('users.index')}}" class="btn bt-info btn-sm">User</a>
+
+                    {{ (Auth::user()->name)}}
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
+=======
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
@@ -116,3 +139,4 @@
         </form>
     </x-auth-card>
 </x-guest-layout>
+>>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655

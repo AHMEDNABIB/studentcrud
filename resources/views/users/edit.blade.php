@@ -1,136 +1,115 @@
 @extends('layouts.app');
 
 @section('content')
- <div class="container">
-    <div class="card">
-  <div class="card-header">User {{$user->name}} id is {{ $user->id}}</div>
-  <div class="card-body">
-      
-      <form action="{{ route('users.update', $user->id)}}" method="post" enctype="multipart/form-data">
-        
-        @csrf
+    <div class="container">
+        <div class="card">
+            <div class="card-header">User {{$user->name}} id is {{ $user->id}}</div>
+            <div class="card-body">
 
-        @method('PUT')
+                <form action="{{ route('users.update', $user->id)}}" method="post" enctype="multipart/form-data">
 
-        <label>Username</label></br>
-        <input type="text" name="name" id="first_name" class="form-control" value="{{ $user->name}}"></br>
+                    @csrf
 
-        @error('name')
+                    @method('PUT')
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    <label>Username</label></br>
+                    <input type="text" name="name" id="first_name" class="form-control" value="{{ $user->name}}"></br>
 
-        <label>First Name</label></br>
-        <input type="text" name="first_name" id="first_name" class="form-control" value="{{ $user->first_name}}"></br>
+                    @error('name')
 
-        @error('first_name')
+                    <span class="text-danger">{{$message}}</span>
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    @enderror
 
-        <label>Last Name</label></br>
-        <input type="text" name="last_name" id="last_name" class="form-control" value="{{ $user->last_name}}"  ></br>
+                    <label>First Name</label></br>
+                    <input type="text" name="first_name" id="first_name" class="form-control" value="{{ $user->first_name}}"></br>
 
-         @error('last_name')
+                    @error('first_name')
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    <span class="text-danger">{{$message}}</span>
 
-        <label>Email</label></br>
-        <input type="email" name="email" id="first_name" class="form-control" value="{{ $user->email}}"></br>
+                    @enderror
 
-<<<<<<< HEAD
-        @error('first_name')
-=======
-        @error('email')
->>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
+                    <label>Last Name</label></br>
+                    <input type="text" name="last_name" id="last_name" class="form-control" value="{{ $user->last_name}}"  ></br>
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    @error('last_name')
 
-        <label>Mobile</label></br>
-        <input type="text" name="mobile" id="mobile" class="form-control" value="{{ $user->mobile}}"></br>
+                    <span class="text-danger">{{$message}}</span>
 
-         @error('mobile')
+                    @enderror
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
-        
-        <label>Address</label></br>
-        <input type="text" name="address" id="address" class="form-control" value="{{ $user->address}}"></br>
+                    <label>Email</label></br>
+                    <input type="email" name="email" id="first_name" class="form-control" value="{{ $user->email}}"></br>
 
-         @error('address')
+                    @error('email')
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
-       
-        <label>Post Code</label></br>
-        <input type="text" name="post_code" id="post_code" class="form-control" value="{{ $user->post_code}}"></br>
+                    <span class="text-danger">{{$message}}</span>
 
-         @error('post_code')
+                    @enderror
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    <label>Mobile</label></br>
+                    <input type="text" name="mobile" id="mobile" class="form-control" value="{{ $user->mobile}}"></br>
 
-        <label>Image</label></br>
-<<<<<<< HEAD
-        <input type="file" name="image" id="img" class="form-control" value="{{$user->image}}"></br>
+                    @error('mobile')
 
-         @error('user')
-=======
-        <input type="file" name="image" id="img" class="form-control" ></br>
+                    <span class="text-danger">{{$message}}</span>
 
-         @error('image')
->>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
+                    @enderror
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    <label>Address</label></br>
+                    <input type="text" name="address" id="address" class="form-control" value="{{ $user->address}}"></br>
 
-      </br>
+                    @error('address')
 
-<<<<<<< HEAD
-        <img src="{{url('/uploads', $user->image)}}" alt="" srcset="" width="120"></br>
-        </br>
-=======
-        <img src="{{url('/image', $user->image)}}" alt="" srcset="" width="120"></br>
-        </br>
-               
-        
-              <label for="password">Password</label>
-              <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" autocomplete="off" ">
-         @error('password')
+                    <span class="text-danger">{{$message}}</span>
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    @enderror
 
-        
-             <label for="confirm-password">Confirm Password</label>
-              <input type="password" name="confirm-password" class="form-control" id="confirm-password" placeholder="Enter confirm password" autocomplete="off">
-          
-           @error('password')
+                    <label>Post Code</label></br>
+                    <input type="text" name="post_code" id="post_code" class="form-control" value="{{ $user->post_code}}"></br>
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
-       
+                    @error('post_code')
 
->>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
+                    <span class="text-danger">{{$message}}</span>
 
-        <input type="submit" value="Save" class="btn btn-success"></br>
-    </form>
-   
-  </div>
-</div>
- </div>
+                    @enderror
 
-    
+                    <label>Image</label></br>
+                    <input type="file" name="image" id="img" class="form-control" ></br>
+
+                    @error('image')
+
+                    <span class="text-danger">{{$message}}</span>
+
+                    @enderror
+
+                    </br>
+
+                    <img src="{{url('/image', $user->image)}}" alt="" srcset="" width="120"></br>
+                    </br>
+
+
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" autocomplete="off" ">
+                    @error('password')
+                    <span class="text-danger">{{$message}}</span>
+
+                    @enderror
+
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" name="confirm-password" class="form-control" id="confirm-password" placeholder="Enter confirm password" autocomplete="off">
+
+                    @error('password')
+                    <span class="text-danger">{{$message}}</span>
+
+                    @enderror
+
+                    <input type="submit" value="Save" class="btn btn-success"></br>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
 @endsection

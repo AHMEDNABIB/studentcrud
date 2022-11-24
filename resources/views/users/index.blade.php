@@ -1,4 +1,4 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
 @section('content')
 
@@ -26,7 +26,7 @@
                     </thead>
                     <tbody>
                      @foreach ($users as $user)
-
+                       {{-- {{ dd($user->image);}} --}}
                      <tr>
                         @php
                         //dd($users->count());

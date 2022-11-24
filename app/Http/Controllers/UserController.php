@@ -170,30 +170,33 @@ class UserController extends Controller
             'mobile'=> 'required|numeric',
             'address'=> 'required|max:50',
             'post_code'=> 'required|digits:5',
-             'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+             'image'=> 'mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
         
     
         $input = $request->all();
-  
+
+      
+
+
         if ($image = $request->file('image')) {
             $destinationPath = 'image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";
-           
-
-           
-        }else{
-
+            $input['image'] = "$profileImage";  
             
-            unset($input['image']);
-        }
-         
+             
          if (file_exists(public_path('image/'.$user->image))) {
                 unlink(public_path('image/'.$user->image)); 
             }
 
+        }else{  
+            unset($input['image']);
+        }
+        
+  
+      
+        
           if($input['password'] == null) {
           
                unset($input['password']);
@@ -206,13 +209,22 @@ class UserController extends Controller
 
         //  dd($input);
 
+        if (Auth::user()->is_admin) {
+            $input['is_admin']=1;
+        } else {
+            $input['is_admin']=0;
+        }
+        
+
        
-         $input['is_admin']=0;
+      
   
         
         
           
         $user->update($input);
+
+        
     
         return redirect()->route('users.index');
   

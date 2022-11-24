@@ -145,6 +145,15 @@ class UserController extends Controller
         return view('users.edit',compact('user'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+
 
     public function update(Request $request, $id)
     {
@@ -153,6 +162,8 @@ class UserController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            // 'email' => [ 'string', 'email', 'max:255'],
+            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'email'=>'required|string|email|max:255|unique:users,email,'. $id,
             'first_name'=> 'required|max:25',
             'last_name'=> 'required|max:25',
@@ -193,6 +204,12 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         $user= User::findOrFail($id);
@@ -205,4 +222,10 @@ class UserController extends Controller
 
         return redirect()->route('users.index');
     }
+
+
+    //  public function handleAdmin()
+    // {
+    //     return view('handleAdmin');
+    // }
 }

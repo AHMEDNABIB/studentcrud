@@ -3,11 +3,11 @@
 @section('content')
 
     <div class="container">
-       
+
         {{-- <a href="" class="btn btn-primary"> Create</a> --}}
         <div class="row">
             <div class="col-lg-8">
-                
+
                 <table class="table">
                     <thead>
                         <tr>
@@ -21,7 +21,7 @@
                         <th scope="col">Post Code</th>
                         <th scope="col">Image</th>
                         <th scope="col">Action</th>
-                        
+
                         </tr>
                     </thead>
                     <tbody>
@@ -54,14 +54,14 @@
                             <a href="{{ route('users.show',$user->id)}}" class="btn btn-primary"> Show</a>
                              <a href="{{ route('users.edit',$user->id)}}" class="btn btn-primary"> Edit</a>
 
-                            
+
                               <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
-                      
-                            
+
+
                         </td>
                          {{-- <td>
                             <img src="{{url('/uploads',$image->image)}}" alt="Product Image" srcset="" width="80">
@@ -75,28 +75,28 @@
                             <a href="{{ route('image.show',$image->id)}}" class="btn btn-primary"> Show</a>
                              <a href="{{ route('image.edit',$image->id)}}" class="btn btn-primary"> Edit</a>
 
-                            
+
                               <form action="{{ route('image.destroy', $image->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
-                      
-                            
+
+
                         </td> --}}
-                       
+
 
                      </tr>
-                         
+
                      @endforeach
-                       
+
                     </tbody>
                 </table>
 
 <<<<<<< HEAD
             </div>
 =======
-               
+
 
             </div>
             @php $userId=Auth::user()->is_admin; @endphp
@@ -104,7 +104,7 @@
             @if($userId==1)
                {{ $users->links() }}
             @endif
-            
+
 >>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
         </div>
     </div>

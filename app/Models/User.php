@@ -26,12 +26,8 @@ class User extends Authenticatable
         'mobile',
         'address',
         'post_code',
-<<<<<<< HEAD
-        'image'
-=======
         'image',
         'is_admin'
->>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
     ];
 
     /**
@@ -51,9 +47,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-<<<<<<< HEAD
-=======
         // 'is_admin'=>'boolean'
->>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655
     ];
 }

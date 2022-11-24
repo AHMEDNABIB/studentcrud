@@ -163,7 +163,7 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             // 'email' => [ 'string', 'email', 'max:255'],
-            // 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => 'nullable|confirmed|min:6',
             'email'=>'required|string|email|max:255|unique:users,email,'. $id,
             'first_name'=> 'required|max:25',
             'last_name'=> 'required|max:25',
@@ -181,7 +181,12 @@ class UserController extends Controller
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $input['image'] = "$profileImage";
+
+
+
         }else{
+
+
             unset($input['image']);
         }
 
@@ -189,8 +194,19 @@ class UserController extends Controller
             unlink(public_path('image/'.$user->image));
         }
 
-        $password= bcrypt($request->password);
-        $input['password']= $password;
+        if($input['password'] == null) {
+
+            unset($input['password']);
+            unset($input['password_confirmation']);
+
+        }else{
+            $password= bcrypt($request->password);
+            $input['password']= $password;
+        }
+
+        //  dd($input);
+
+
         $input['is_admin']=0;
 
 
@@ -224,8 +240,5 @@ class UserController extends Controller
     }
 
 
-    //  public function handleAdmin()
-    // {
-    //     return view('handleAdmin');
-    // }
+
 }

@@ -60,7 +60,6 @@
                     <label>Address</label></br>
                     <input type="text" name="address" id="address" class="form-control" value="{{ $user->address}}"></br>
 
-<<<<<<< HEAD
                     @error('address')
 
                     <span class="text-danger">{{$message}}</span>
@@ -89,50 +88,31 @@
 
                     <img src="{{url('/image', $user->image)}}" alt="" srcset="" width="120"></br>
                     </br>
-=======
-        <img src="{{url('/image', $user->image)}}" alt="" srcset="" width="120"></br>
-        </br>
-               
-        
-           <div class="form-group ">
-    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
-    <div class="col-md-6">
-        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" >
 
-        @error('password')
-            <span class="invalid-feedback" role="alert">
+                    <div class="form-group ">
+                        <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+
+                        <div class="col-md-6">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" >
+
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
-        @enderror
-    </div>
-</div>
+                            @enderror
+                        </div>
+                    </div>
 
-<div class="form-group ">
-    <label for="password" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
+                    <div class="form-group ">
+                        <label for="password" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
 
-    <div class="col-md-6">
-        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" >
-    </div>
-</div>
-       
->>>>>>> 7a0f0b90c42f7758d92fc24718e8986e646de938
+                        <div class="col-md-6">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" >
+                        </div>
+                    </div>
 
 
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" autocomplete="off" ">
-                    @error('password')
-                    <span class="text-danger">{{$message}}</span>
-
-                    @enderror
-
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" name="confirm-password" class="form-control" id="confirm-password" placeholder="Enter confirm password" autocomplete="off">
-
-                    @error('password')
-                    <span class="text-danger">{{$message}}</span>
-
-                    @enderror
 
                     <input type="submit" value="Save" class="btn btn-success"></br>
                 </form>
@@ -140,5 +120,6 @@
             </div>
         </div>
     </div>
+
 
 @endsection

@@ -4,6 +4,7 @@
 
     <div class="container">
 
+        {{-- <a href="" class="btn btn-primary"> Create</a> --}}
         <div class="row">
             <div class="col-lg-8">
 
@@ -25,7 +26,11 @@
                     </thead>
                     <tbody>
                     @foreach ($users as $user)
+
                         <tr>
+                            @php
+                                //dd($users->count());
+                            @endphp
                             <td>{{ $loop->index+1}}</td>
                             <td>{{ $user->name}}</td>
                             <td>{{ $user->first_name}}</td>
@@ -41,16 +46,46 @@
                             <td>
                                 <a href="{{ route('users.show',$user->id)}}" class="btn btn-primary"> Show</a>
                                 <a href="{{ route('users.edit',$user->id)}}" class="btn btn-primary"> Edit</a>
+
+
                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
+
+
                             </td>
+                            {{-- <td>
+                               <img src="{{url('/uploads',$image->image)}}" alt="Product Image" srcset="" width="80">
+                           </td --}}
+                            {{-- <td>{{ $image->mobile}}</td>
+                            <td>{{ $image->address}}</td>
+                             <td>{{ $image->post_code}}</td>
+                           >
+                            <td>
+                                <a href="{{ route('image.show',$image->id)}}" class="btn btn-primary"> Show</a>
+                                 <a href="{{ route('image.edit',$image->id)}}" class="btn btn-primary"> Edit</a>
+
+                                  <form action="{{ route('image.destroy', $image->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+
+
+                            </td> --}}
+
+
                         </tr>
+
                     @endforeach
+
                     </tbody>
                 </table>
+
+
+
             </div>
             @php $userId=Auth::user()->is_admin; @endphp
 

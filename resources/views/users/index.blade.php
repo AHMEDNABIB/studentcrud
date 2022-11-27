@@ -1,4 +1,4 @@
-@extends('layouts.app');
+@extends('layouts.app')
 
 @section('content')
 
@@ -25,6 +25,7 @@
                     </tr>
                     </thead>
                     <tbody>
+<<<<<<< HEAD
                     @foreach ($users as $user)
 
                         <tr>
@@ -42,6 +43,25 @@
                             <td>
                                 <img src="{{url('image/',$user->image)}}" alt="Product Image" srcset="" width="80">
                             </td>
+=======
+                     @foreach ($users as $user)
+                       {{-- {{ dd($user->image);}} --}}
+                     <tr>
+                        @php
+                        //dd($users->count());
+                        @endphp
+                        <td>{{ $loop->index+1}}</td>
+                        <td>{{ $user->name}}</td>
+                        <td>{{ $user->first_name}}</td>
+                        <td>{{ $user->last_name}}</td>
+                        <td>{{ $user->email}}</td>
+                        <td>{{ $user->mobile}}</td>
+                        <td>{{ $user->address}}</td>
+                        <td>{{ $user->post_code}}</td>
+                        <td>
+                            <img src="{{url('image/',$user->image)}}" alt="Product Image" srcset="" width="80">
+                        </td>
+>>>>>>> 70a18122faf3eb84f27682e09b16deafa41aa3ad
 
                             <td>
                                 <a href="{{ route('users.show',$user->id)}}" class="btn btn-primary"> Show</a>

@@ -1,10 +1,9 @@
 
-
-@extends('layouts.app');
+@extends('layouts.app')
 
 @section('content')
- 
- 
+  <div class="row justify-content-center"></div>
+      
 <div class="card">
   <div class="card-header">View Page</div>
   <div class="card-body">
@@ -29,3 +28,6 @@
   
   </div>
 </div>
+  </div>
+
+  @endsection

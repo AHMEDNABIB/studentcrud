@@ -170,40 +170,32 @@ class UserController extends Controller
             'mobile'=> 'required|numeric',
             'address'=> 'required|max:50',
             'post_code'=> 'required|digits:5',
-<<<<<<< HEAD
-            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-=======
-             'image'=> 'mimes:jpeg,png,jpg,gif,svg|max:2048'
->>>>>>> 70a18122faf3eb84f27682e09b16deafa41aa3ad
+            'image'=> 'mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
 
         $input = $request->all();
 
-<<<<<<< HEAD
-=======
-      
 
 
->>>>>>> 70a18122faf3eb84f27682e09b16deafa41aa3ad
+
         if ($image = $request->file('image')) {
             $destinationPath = 'image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
-<<<<<<< HEAD
             $input['image'] = "$profileImage";
 
 
+            if (file_exists(public_path('image/'.$user->image))) {
+                unlink(public_path('image/'.$user->image));
+            }
 
         }else{
-
-
             unset($input['image']);
         }
 
-        if (file_exists(public_path('image/'.$user->image))) {
-            unlink(public_path('image/'.$user->image));
-        }
+
+
 
         if($input['password'] == null) {
 
@@ -217,59 +209,23 @@ class UserController extends Controller
 
         //  dd($input);
 
-
-        $input['is_admin']=0;
-
-
-
-
-        $user->update($input);
-
-=======
-            $input['image'] = "$profileImage";  
-            
-             
-         if (file_exists(public_path('image/'.$user->image))) {
-                unlink(public_path('image/'.$user->image)); 
-            }
-
-        }else{  
-            unset($input['image']);
-        }
-        
-  
-      
-        
-          if($input['password'] == null) {
-          
-               unset($input['password']);
-               unset($input['password_confirmation']);
-               
-          }else{
-              $password= bcrypt($request->password);
-             $input['password']= $password;
-          }
-
-        //  dd($input);
-
         if (Auth::user()->is_admin) {
             $input['is_admin']=1;
         } else {
             $input['is_admin']=0;
         }
-        
 
-       
-      
-  
-        
-        
-          
+
+
+
+
+
+
+
         $user->update($input);
 
-        
-    
->>>>>>> 70a18122faf3eb84f27682e09b16deafa41aa3ad
+
+
         return redirect()->route('users.index');
 
 

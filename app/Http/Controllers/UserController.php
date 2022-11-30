@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
+use Illuminate\Support\Facades\Gate;
+
+
 class UserController extends Controller
 
 {
@@ -23,38 +26,39 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ 
+
+   
     public function index()
     {     
-
-        //  $is = Auth::
-
-        $id = Auth::id();
-
-          //dd();
-
-        
-              
-
-        //    $users = User::orderBy('id', 'DESC')->paginate(5);
-             
-        //    return view('users.index',compact('users'));
-
-          if (Auth::user()->is_admin==1) {
-            //  $users= User::all();
-           
-              $users = User::orderBy('id', 'DESC')->paginate(5);
+           $id = Auth::id();
+          if (Gate::allows('isAdmin')) {
+            $users = User::orderBy('id', 'DESC')->paginate(5);
              
            return view('users.index',compact('users'));
-          }else {
-            //dd(Auth::user());
+     
+    } else {
+
+        $users= User::where('id',$id)->get();
+             
+          return view('users.index',compact('users'));
+
+    }
       
-               //$users= User::find($id)->paginate(1) ;
-               //dd(Auth::id());
-               $users= User::where('id',$id)->get();
-               //dd($users);
-                return view('users.index',compact('users'));
-          }
+
+    //     $id = Auth::id();
+    //    if (Auth::user()->is_admin==1) {
+         
+           
+    //           $users = User::orderBy('id', 'DESC')->paginate(5);
+             
+    //        return view('users.index',compact('users'));
+    //       }else {
+         
+    //            $users= User::where('id',$id)->get();
+             
+    //             return view('users.index',compact('users'));
+    //       }
 
       
        
@@ -207,9 +211,11 @@ class UserController extends Controller
              $input['password']= $password;
           }
 
+        //    $input['is_admin']=0;
+
         //  dd($input);
 
-        if (Auth::user()->is_admin) {
+        if (Auth::user()->is_admin&& $user->is_admin) {
             $input['is_admin']=1;
         } else {
             $input['is_admin']=0;

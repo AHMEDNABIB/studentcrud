@@ -19,7 +19,7 @@
 
          </br>
 
-        <img src="{{url('/uploads', $user->image)}}" alt="" srcset="" width="120"></br>
+        <img src="{{url('/image', $user->image)}}" alt="" srcset="" width="120"></br>
         </br>
         
   </div>

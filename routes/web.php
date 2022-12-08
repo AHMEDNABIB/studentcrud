@@ -22,31 +22,12 @@ Route::get('/', function () {
 });
 
 
-// Route::controller(SampleController::class)->group(function(){
 
-//     Route::get('login', 'index')->name('login');
-
-//     Route::get('registration', 'registration')->name('registration');
-//     Route::post('validate_registration', 'validate_registration')->name('sample.validate_registration');
-//        Route::post('validate_login', 'validate_login')->name('sample.validate_login');
-
-//     Route::get('dashboard', 'dashboard')->name('dashboard');
-
-//     Route::get('logout', 'logout')->name('logout');
-
- 
-
-// });
 
 
 Route::resource('users', UserController::class);
 
 Route::get('/dashboard', function () {
-
-    // if (Auth::user()->is_Admin())
-    //     return view('dashboard');
-
-    
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -55,5 +36,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/changePassword',[App\Http\Controllers\HomeController::class, 'showChangePasswordGet'])->name('changePasswordGet');
+    Route::post('/changePassword',[App\Http\Controllers\HomeController::class, 'changePasswordPost'])->name('changePasswordPost');
+});
+
+
 
 require __DIR__.'/auth.php';

@@ -11,17 +11,23 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-
+use App\Repositories\Interfaces\userRepositoryInterface;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\userRequest;
+use App\Http\Requests\userUpdateRequest;
 
 
 class UserController extends Controller
 
 {
+    private $userRepository;
 
-     public function __construct(){
+     public function __construct(userRepositoryInterface $userRepository){
         $this->middleware('auth');
+        $this->userRepository= $userRepository;
+
      }
+
     /**Auth::user()->is_admin
      * Display a listing of the resource.
      *
@@ -30,37 +36,11 @@ class UserController extends Controller
 
    
     public function index()
-    {     
-           $id = Auth::id();
-          if (Gate::allows('isAdmin')) {
-            $users = User::orderBy('id', 'DESC')->paginate(5);
-             
-           return view('users.index',compact('users'));
-     
-    } else {
+    {    
+        
+        $users = $this->userRepository->all(); 
 
-        $users= User::where('id',$id)->get();
-             
-          return view('users.index',compact('users'));
-
-    }
-      
-
-    //     $id = Auth::id();
-    //    if (Auth::user()->is_admin==1) {
-         
-           
-    //           $users = User::orderBy('id', 'DESC')->paginate(5);
-             
-    //        return view('users.index',compact('users'));
-    //       }else {
-         
-    //            $users= User::where('id',$id)->get();
-             
-    //             return view('users.index',compact('users'));
-    //       }
-
-      
+        return view('users.index',compact('users'));  
        
     }
 
@@ -83,20 +63,10 @@ class UserController extends Controller
    
 
 
-    public function store(Request $request)
+    public function store(userRequest $request)
     {
 
-            $request->validate([
-           'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'first_name'=> 'required|max:25',
-            'last_name'=> 'required|max:25',
-            'mobile'=> 'required|numeric',
-            'address'=> 'required|max:50',
-            'post_code'=> 'required|digits:5',
-            'image'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
+        
   
          $input = $request->all();
 
@@ -114,9 +84,12 @@ class UserController extends Controller
             $input['image'] = "$profileImage";
         }
     
-        User::create(
-           $input
-        );
+        // User::create(
+        //    $input
+        // );
+
+        $this->userRepository->create($input);
+
      
         return redirect()->route('users.index');
                        
@@ -132,7 +105,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-         $user= User::findOrFail($id);
+         $user= $this->userRepository->show($id);
         return view('users.show',compact('user'));
     
     }
@@ -145,7 +118,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-          $user= User::findOrFail($id);
+          $user= $this->userRepository->show($id);
         return view('users.edit',compact('user'));
     }
 
@@ -159,24 +132,14 @@ class UserController extends Controller
     
 
 
-    public function update(Request $request, $id)
+    public function update(userUpdateRequest $request, $id)
     {
     
-         $user = User::findOrFail($id);
-
-         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            // 'email' => [ 'string', 'email', 'max:255'],
-             'password' => 'nullable|confirmed|min:6',
-             'email'=>'required|string|email|max:255|unique:users,email,'. $id,
-            'first_name'=> 'required|max:25',
-            'last_name'=> 'required|max:25',
-            'mobile'=> 'required|numeric',
-            'address'=> 'required|max:50',
-            'post_code'=> 'required|digits:5',
-             'image'=> 'mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
+      
+          $user= $this->userRepository->show($id);
         
+         
+        dd($user->id,$id);
     
         $input = $request->all();
 
@@ -228,7 +191,9 @@ class UserController extends Controller
         
         
           
-        $user->update($input);
+        // $user->update($input);
+
+        $this->userRepository->update($id,$input);
 
         
     
@@ -246,15 +211,52 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user= User::findOrFail($id);
+         $user= $this->userRepository->show($id);
+
+        //  dd($user->id,$id);
+
+       //  dd($id);
         
          if (file_exists(public_path('/uploads/'.$user->image))) {
                 unlink(public_path('/uploads/'.$user->image)); 
             }
 
-        $user->delete();
+         $this->userRepository->delete($id);
 
+        // dd($this);
         return redirect()->route('users.index');
+    }
+
+    public function changePassword(Request $request)
+    {
+        return view('users.change-password');
+    }
+ 
+    public function changePasswordSave(Request $request)
+    {
+        
+        $this->validate($request, [
+            'current_password' => 'required|string',
+            'new_password' => 'required|confirmed|min:8|string'
+        ]);
+        $auth = Auth::user();
+ 
+ // The passwords matches
+        if (!Hash::check($request->get('current_password'), $auth->password)) 
+        {
+            return back()->with('error', "Current Password is Invalid");
+        }
+ 
+// Current password and new password same
+        if (strcmp($request->get('current_password'), $request->new_password) == 0) 
+        {
+            return redirect()->back()->with("error", "New Password cannot be same as your current password.");
+        }
+ 
+        $user =  User::find($auth->id);
+        $user->password =  Hash::make($request->new_password);
+        $user->save();
+        return back()->with('success', "Password Changed Successfully");
     }
 
 

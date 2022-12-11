@@ -21,13 +21,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-<<<<<<< HEAD
-=======
 
 
 
 
->>>>>>> 7ee257d6384f89cce005c66ef05f64d51992ea35
 Route::resource('users', UserController::class);
 
 Route::get('/dashboard', function () {

@@ -1,26 +1,3 @@
-<<<<<<< HEAD
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    You're logged in!
-
-                    <a href="{{route('users.index')}}" class="btn bt-info btn-sm">User</a>
-
-                    {{ (Auth::user()->name)}}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
-=======
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
@@ -41,7 +18,7 @@
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
-              <!-- Name -->
+            <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('First Name')" />
 
@@ -50,7 +27,7 @@
                 <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
             </div>
 
-              <!-- Name -->
+            <!-- Name -->
             <div>
                 <x-input-label for="name" :value="__('Last Name')" />
 
@@ -68,7 +45,7 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
-                <!-- Mobile -->
+            <!-- Mobile -->
             <div>
                 <x-input-label for="name" :value="__('Mobile')" />
 
@@ -77,7 +54,7 @@
                 <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
             </div>
 
-                <!-- Post code -->
+            <!-- Post code -->
             <div>
                 <x-input-label for="name" :value="__('Post Code')" />
 
@@ -86,7 +63,7 @@
                 <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
             </div>
 
-                <!-- Address -->
+            <!-- Address -->
             <div>
                 <x-input-label for="name" :value="__('Address')" />
 
@@ -95,7 +72,7 @@
                 <x-input-error :messages="$errors->get('address')" class="mt-2" />
             </div>
 
-                <!-- image -->
+            <!-- image -->
             <div>
                 <x-input-label for="name" :value="__('Image')" />
 
@@ -109,9 +86,9 @@
                 <x-input-label for="password" :value="__('Password')" />
 
                 <x-text-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
+                              type="password"
+                              name="password"
+                              required autocomplete="new-password" />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
@@ -121,8 +98,8 @@
                 <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
                 <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
+                              type="password"
+                              name="password_confirmation" required />
 
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
@@ -139,4 +116,3 @@
         </form>
     </x-auth-card>
 </x-guest-layout>
->>>>>>> c3dc9dd7984e68a6641346bde1c82185250c0655

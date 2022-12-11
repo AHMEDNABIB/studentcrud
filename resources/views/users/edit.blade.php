@@ -1,127 +1,127 @@
 @extends('layouts.app')
 
 @section('content')
- <div class="container">
-    <div class="card">
-  <div class="card-header">User {{$user->name}} id is {{ $user->id}}</div>
-  <div class="card-body">
-      
-      <form action="{{ route('users.update', $user->id)}}" method="post" enctype="multipart/form-data">
-        
-        @csrf
+    <div class="container">
+        <div class="card">
+            <div class="card-header">User {{$user->name}} id is {{ $user->id}}</div>
+            <div class="card-body">
 
-        @method('PUT')
+                <form action="{{ route('users.update', $user->id)}}" method="post" enctype="multipart/form-data">
 
-        <label>Username</label></br>
-        <input type="text" name="name" id="first_name" class="form-control" value="{{ $user->name}}"></br>
+                    @csrf
 
-        @error('name')
+                    @method('PUT')
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    <label>Username</label></br>
+                    <input type="text" name="name" id="first_name" class="form-control" value="{{ $user->name}}"></br>
 
-        <label>First Name</label></br>
-        <input type="text" name="first_name" id="first_name" class="form-control" value="{{ $user->first_name}}"></br>
+                    @error('name')
 
-        @error('first_name')
+                    <span class="text-danger">{{$message}}</span>
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    @enderror
 
-        <label>Last Name</label></br>
-        <input type="text" name="last_name" id="last_name" class="form-control" value="{{ $user->last_name}}"  ></br>
+                    <label>First Name</label></br>
+                    <input type="text" name="first_name" id="first_name" class="form-control" value="{{ $user->first_name}}"></br>
 
-         @error('last_name')
+                    @error('first_name')
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    <span class="text-danger">{{$message}}</span>
 
-        <label>Email</label></br>
-        <input type="email" name="email" id="first_name" class="form-control" value="{{ $user->email}}"></br>
+                    @enderror
 
-        @error('email')
+                    <label>Last Name</label></br>
+                    <input type="text" name="last_name" id="last_name" class="form-control" value="{{ $user->last_name}}"  ></br>
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    @error('last_name')
 
-        <label>Mobile</label></br>
-        <input type="text" name="mobile" id="mobile" class="form-control" value="{{ $user->mobile}}"></br>
+                    <span class="text-danger">{{$message}}</span>
 
-         @error('mobile')
+                    @enderror
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
-        
-        <label>Address</label></br>
-        <input type="text" name="address" id="address" class="form-control" value="{{ $user->address}}"></br>
+                    <label>Email</label></br>
+                    <input type="email" name="email" id="first_name" class="form-control" value="{{ $user->email}}"></br>
 
-         @error('address')
+                    @error('email')
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
-       
-        <label>Post Code</label></br>
-        <input type="text" name="post_code" id="post_code" class="form-control" value="{{ $user->post_code}}"></br>
+                    <span class="text-danger">{{$message}}</span>
 
-         @error('post_code')
+                    @enderror
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    <label>Mobile</label></br>
+                    <input type="text" name="mobile" id="mobile" class="form-control" value="{{ $user->mobile}}"></br>
 
-        <label>Image</label></br>
-        <input type="file" name="image" id="img" class="form-control" ></br>
-        
-        <img src="{{url('/image', $user->image)}}" alt="" srcset="" class="mr-5" width="120"></br>
+                    @error('mobile')
 
-         @error('image')
+                    <span class="text-danger">{{$message}}</span>
 
-          <span class="text-danger">{{$message}}</span>
-            
-        @enderror
+                    @enderror
 
-         </br>
+                    <label>Address</label></br>
+                    <input type="text" name="address" id="address" class="form-control" value="{{ $user->address}}"></br>
 
-        <img src="{{url('/image', $user->image)}}" alt="" srcset="" class="mr-5" width="120"></br>
-        </br>
-               
-        
-           <div class="form-group ">
-    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                    @error('address')
 
-    <div class="col-md-6">
-        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" >
+                    <span class="text-danger">{{$message}}</span>
 
-        @error('password')
-            <span class="invalid-feedback" role="alert">
+                    @enderror
+
+                    <label>Post Code</label></br>
+                    <input type="text" name="post_code" id="post_code" class="form-control" value="{{ $user->post_code}}"></br>
+
+                    @error('post_code')
+
+                    <span class="text-danger">{{$message}}</span>
+
+                    @enderror
+
+                    <label>Image</label></br>
+                    <input type="file" name="image" id="img" class="form-control" ></br>
+
+                    <img src="{{url('/image', $user->image)}}" alt="" srcset="" class="mr-5" width="120"></br>
+
+                    @error('image')
+
+                    <span class="text-danger">{{$message}}</span>
+
+                    @enderror
+
+                    </br>
+
+                    <img src="{{url('/image', $user->image)}}" alt="" srcset="" class="mr-5" width="120"></br>
+                    </br>
+
+
+                    <div class="form-group ">
+                        <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+
+                        <div class="col-md-6">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" >
+
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
-        @enderror
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="password" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
+
+                        <div class="col-md-6">
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" >
+                        </div>
+                    </div>
+
+
+
+                    <input type="submit" value="Save" class="btn btn-success"></br>
+                </form>
+
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="form-group ">
-    <label for="password" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
-
-    <div class="col-md-6">
-        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" >
-    </div>
-</div>
-       
 
 
-        <input type="submit" value="Save" class="btn btn-success"></br>
-    </form>
-   
-  </div>
-</div>
- </div>
-
-    
 @endsection

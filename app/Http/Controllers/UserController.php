@@ -22,26 +22,26 @@ class UserController extends Controller
 {
     private $userRepository;
 
-     public function __construct(userRepositoryInterface $userRepository){
+    public function __construct(userRepositoryInterface $userRepository){
         $this->middleware('auth');
         $this->userRepository= $userRepository;
 
-     }
+    }
 
     /**Auth::user()->is_admin
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */ 
+     */
 
-   
+
     public function index()
-    {    
-        
-        $users = $this->userRepository->all(); 
+    {
 
-        return view('users.index',compact('users'));  
-       
+        $users = $this->userRepository->all();
+
+        return view('users.index',compact('users'));
+
     }
 
     /**
@@ -51,7 +51,7 @@ class UserController extends Controller
      */
     public function create()
     {
-    return view('auth.register');
+        return view('auth.register');
     }
 
     /**
@@ -60,42 +60,42 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-   
+
 
 
     public function store(userRequest $request)
     {
 
-        
-  
-         $input = $request->all();
 
-     
+
+        $input = $request->all();
+
+
 
         //  $password= Hash::make($request->password);
-         $password= bcrypt($request->password);
-         $input['password']= $password;
-         $input['is_admin']=0;
-  
+        $password= bcrypt($request->password);
+        $input['password']= $password;
+        $input['is_admin']=0;
+
         if ($image = $request->file('image')) {
             $destinationPath = 'image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $input['image'] = "$profileImage";
         }
-    
+
         // User::create(
         //    $input
         // );
 
         $this->userRepository->create($input);
 
-     
+
         return redirect()->route('users.index');
-                       
-    
-    
-     }
+
+
+
+    }
 
     /**
      * Display the specified resource.
@@ -105,9 +105,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-         $user= $this->userRepository->show($id);
+        $user= $this->userRepository->show($id);
         return view('users.show',compact('user'));
-    
+
     }
 
     /**
@@ -118,7 +118,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-          $user= $this->userRepository->show($id);
+        $user= $this->userRepository->show($id);
         return view('users.edit',compact('user'));
     }
 
@@ -129,50 +129,50 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
+
 
 
     public function update(userUpdateRequest $request, $id)
     {
-    
-      
-          $user= $this->userRepository->show($id);
-        
-         
+
+
+        $user= $this->userRepository->show($id);
+
+
         dd($user->id,$id);
-    
+
         $input = $request->all();
 
-      
+
 
 
         if ($image = $request->file('image')) {
             $destinationPath = 'image/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";  
-            
-             
-         if (file_exists(public_path('image/'.$user->image))) {
-                unlink(public_path('image/'.$user->image)); 
+            $input['image'] = "$profileImage";
+
+
+            if (file_exists(public_path('image/'.$user->image))) {
+                unlink(public_path('image/'.$user->image));
             }
 
-        }else{  
+        }else{
             unset($input['image']);
         }
-        
-  
-      
-        
-          if($input['password'] == null) {
-          
-               unset($input['password']);
-               unset($input['password_confirmation']);
-               
-          }else{
-              $password= bcrypt($request->password);
-             $input['password']= $password;
-          }
+
+
+
+
+        if($input['password'] == null) {
+
+            unset($input['password']);
+            unset($input['password_confirmation']);
+
+        }else{
+            $password= bcrypt($request->password);
+            $input['password']= $password;
+        }
 
         //    $input['is_admin']=0;
 
@@ -183,24 +183,24 @@ class UserController extends Controller
         } else {
             $input['is_admin']=0;
         }
-        
 
-       
-      
-  
-        
-        
-          
+
+
+
+
+
+
+
         // $user->update($input);
 
         $this->userRepository->update($id,$input);
 
-        
-    
+
+
         return redirect()->route('users.index');
-  
-       
-       
+
+
+
     }
 
     /**
@@ -211,17 +211,17 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-         $user= $this->userRepository->show($id);
+        $user= $this->userRepository->show($id);
 
         //  dd($user->id,$id);
 
-       //  dd($id);
-        
-         if (file_exists(public_path('/uploads/'.$user->image))) {
-                unlink(public_path('/uploads/'.$user->image)); 
-            }
+        //  dd($id);
 
-         $this->userRepository->delete($id);
+        if (file_exists(public_path('/uploads/'.$user->image))) {
+            unlink(public_path('/uploads/'.$user->image));
+        }
+
+        $this->userRepository->delete($id);
 
         // dd($this);
         return redirect()->route('users.index');
@@ -231,28 +231,28 @@ class UserController extends Controller
     {
         return view('users.change-password');
     }
- 
+
     public function changePasswordSave(Request $request)
     {
-        
+
         $this->validate($request, [
             'current_password' => 'required|string',
             'new_password' => 'required|confirmed|min:8|string'
         ]);
         $auth = Auth::user();
- 
- // The passwords matches
-        if (!Hash::check($request->get('current_password'), $auth->password)) 
+
+        // The passwords matches
+        if (!Hash::check($request->get('current_password'), $auth->password))
         {
             return back()->with('error', "Current Password is Invalid");
         }
- 
+
 // Current password and new password same
-        if (strcmp($request->get('current_password'), $request->new_password) == 0) 
+        if (strcmp($request->get('current_password'), $request->new_password) == 0)
         {
             return redirect()->back()->with("error", "New Password cannot be same as your current password.");
         }
- 
+
         $user =  User::find($auth->id);
         $user->password =  Hash::make($request->new_password);
         $user->save();
@@ -260,5 +260,5 @@ class UserController extends Controller
     }
 
 
-   
+
 }

@@ -78,6 +78,8 @@
                     <label>Image</label></br>
                     <input type="file" name="image" id="img" class="form-control" ></br>
 
+                    <img src="{{url('/image', $user->image)}}" alt="" srcset="" class="mr-5" width="120"></br>
+
                     @error('image')
 
                     <span class="text-danger">{{$message}}</span>
@@ -86,7 +88,7 @@
 
                     </br>
 
-                    <img src="{{url('/image', $user->image)}}" alt="" srcset="" width="120"></br>
+                    <img src="{{url('/image', $user->image)}}" alt="" srcset="" class="mr-5" width="120"></br>
                     </br>
 
 

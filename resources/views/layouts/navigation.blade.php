@@ -29,6 +29,12 @@
                             {{ __('Register') }}
                         </x-nav-link>
                     </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('changePasswordGet')" :active="request()->routeIs('changePasswordGet')">
+                            {{ __('Change Password') }}
+                        </x-nav-link>
+                    </div>
                 @endif
 
                 <x-dropdown align="right" width="48">
@@ -91,20 +97,18 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                    </x-response-nav-link>
+                <
 
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
 
-                        <x-responsive-nav-link :href="route('logout')"
-                                               onclick="event.preventDefault();
+                    <x-responsive-nav-link :href="route('logout')"
+                                           onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </x-responsive-nav-link>
-                    </form>
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
             </div>
         </div>
     </div>

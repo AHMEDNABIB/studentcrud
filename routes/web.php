@@ -21,6 +21,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+
+
+
+
 Route::resource('users', UserController::class);
 
 Route::get('/dashboard', function () {
@@ -32,5 +36,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/changePassword',[App\Http\Controllers\HomeController::class, 'showChangePasswordGet'])->name('changePasswordGet');
+    Route::post('/changePassword',[App\Http\Controllers\HomeController::class, 'changePasswordPost'])->name('changePasswordPost');
+});
+
+
 
 require __DIR__.'/auth.php';

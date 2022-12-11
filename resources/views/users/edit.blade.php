@@ -51,16 +51,34 @@
                     <label>Mobile</label></br>
                     <input type="text" name="mobile" id="mobile" class="form-control" value="{{ $user->mobile}}"></br>
 
+<<<<<<< HEAD
                     @error('mobile')
+=======
+        <label>Image</label></br>
+        <input type="file" name="image" id="img" class="form-control" ></br>
+        
+        <img src="{{url('/image', $user->image)}}" alt="" srcset="" class="mr-5" width="120"></br>
+>>>>>>> 7ee257d6384f89cce005c66ef05f64d51992ea35
 
                     <span class="text-danger">{{$message}}</span>
 
                     @enderror
 
+<<<<<<< HEAD
                     <label>Address</label></br>
                     <input type="text" name="address" id="address" class="form-control" value="{{ $user->address}}"></br>
 
                     @error('address')
+=======
+         </br>
+
+        <img src="{{url('/image', $user->image)}}" alt="" srcset="" class="mr-5" width="120"></br>
+        </br>
+               
+        
+           <div class="form-group ">
+    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+>>>>>>> 7ee257d6384f89cce005c66ef05f64d51992ea35
 
                     <span class="text-danger">{{$message}}</span>
 
